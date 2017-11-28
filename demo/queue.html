@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        class Queue {
+            constructor(content=[]) {
+                this._queue = [...content];
+            }
+            Shift() {
+                // const value = this._queue[0];
+                this._queue.shift();
+                // return value;
+                return this._queue;
+            }
+            Push(n) {
+                this._queue.push(n);
+                return this._queue.length;
+            }
+        }
+        
+        var q1 = new Queue(['a', 'b', 'c', 'd']);
+        q1.Shift();
+        q1.Push('e');
+        q1.Shift();
+        q1.Push('f');
+        console.log(q1._queue);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tab</title>
+    <style type="text/css">
+        .box div {
+            width: 300px;
+            height: 300px;
+            border: 1px solid red;
+            display: none;
+        }
+
+        .on {
+            background-color: #f90;
+            color: #fff;
+        }
+    </style>
+    <script type="text/javascript">
+        class Tab {
+            constructor(id) {
+                this.mybox = document.getElementById(id);
+                this.mybtn = this.mybox.getElementsByTagName('input');
+                this.mydiv = this.mybox.getElementsByTagName('div');
+                this.init();
+                this.iNow = 0;
+            }
+            init() {
+                for (let i = 0; i < this.mybtn.length; i++) {
+                    this.mybtn[i].onclick = function () {
+                        //alert(this);
+                        this.iNow = i;
+                        this.hide();
+                        this.show(i);
+                    }.bind(this)
+                }
+            }
+            hide() {
+                for (let i = 0; i < this.mybtn.length; i++) {
+                    this.mybtn[i].className = '';
+                    this.mydiv[i].style.display = 'none';
+                }
+            }
+            show(index) {
+                this.mybtn[index].className = 'on';
+                this.mydiv[index].style.display = 'block';
+            }
+        }
+
+        class Tab2 extends Tab {
+            constructor(id) {
+                super(id);
+                setInterval(this.next.bind(this), 1500); //自动切换
+            }
+            next() {
+                this.iNow++;
+                if(this.iNow == this.mybtn.length) {
+                    this.iNow = 0;
+                }
+                this.hide();
+                this.show(this.iNow);
+            }
+        }
+
+        window.onload = function () {
+            new Tab('box');
+            var tb2 = new Tab2('box2');
+
+            // document.onclick = function() {  //点击页面选项卡切换
+            //     tb2.next();
+            // }
+        }
+    </script>
+</head>
+
+<body>
+    <!-- 选项卡 -->
+    <div id="box" class="box">
+        <input class="on" type="button" value="首页">
+        <input type="button" value="排行榜">
+        <input type="button" value="我的">
+        <div style="display:block">homePage</div>
+        <div>rank</div>
+        <div>my message</div>
+    </div>
+    <!-- 继承 -->
+    <div id="box2" class="box">
+        <input class="on" type="button" value="首页">
+        <input type="button" value="排行榜">
+        <input type="button" value="我的">
+        <div style="display:block">homePage</div>
+        <div>rank</div>
+        <div>my message</div>
+    </div>
+</body>
+
+</html>
